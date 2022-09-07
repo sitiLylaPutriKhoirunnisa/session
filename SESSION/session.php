@@ -1,7 +1,23 @@
 <?php
  session_start();
- $_SESSION["username"] = $_POST['username'];
- $_SESSION["password"] = $_POST["password"];
+
+ $username = $_POST['username'];
+ $password = $_POST['password'];
+
+$koneksi = new PDO('mysql:host=localhost;dbname=pbo12','root','');
+$query = $koneksi->query('SELECT * from siswa where username="$username" AND  password="$password" ');
 
 
-header("location:beranda.php");
+if($query->rowCount() > 0){
+    $_SESSION['username'] = $_POST['username'];
+    $_SESSION['password'] = $_POST['password'];
+}else{
+    header("location:beranda.php");
+}
+
+
+ //$_SESSION["username"] = $_POST['username'];
+ //$_SESSION["password"] = $_POST["password"];
+
+
+
